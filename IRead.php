@@ -69,7 +69,7 @@ function file_read(string $str,string $f)
         $count = count($TABLE);
        
         
-        $c=count($TABLE);
+    
         /* 3- Это адреса
            1 - Округ (Республика ....)
            2 - Время и дата
