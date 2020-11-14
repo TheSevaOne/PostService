@@ -1,12 +1,10 @@
 <?php
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use  PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use PhpOffice\PhpSpreadsheet\Reader\IReadFilter; 
 require_once("vendor/autoload.php");
 echo "<strong>Файл <strong/>";
-
-
-
-
 class IRead implements IReadFilter
 {
     public $startRow = 0;
@@ -79,7 +77,7 @@ function file_read(string $str,string $f)
            9 - ИНН компании
            10 - Сумма денег
            11 - fee
-           12
+         
 
       */
         for ($i = 0; $i <$count; $i++) {
@@ -88,11 +86,14 @@ function file_read(string $str,string $f)
 
     }
 
-    function file_write(string $str,string $f)
+    function file_write(array $str,string $filename)
     {
-
-
-
+     // Формат array(" Регион ", "Улица", " ****  " ......)
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray($str, NULL, 'A1');     
+        $g= new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
+        $g->save($filename.".csv");
       
 
     }
