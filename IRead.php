@@ -43,18 +43,24 @@ function file_read(string $str,string $f)
         
             $chunkSize = 5;
              
-            $chunkFilter = new IRead();
-            $reader->setReadFilter($chunkFilter);
+       
            // Цикл для чтения нашего рабочего листа блоками 
             for ($startRow = 1; $startRow <=  100;  $startRow += $chunkSize) {
                 // Сообщаем фильтру чтения ограничения, по которым мы хотим читать эту итерацию
-                $chunkFilter->setRows($startRow, $chunkSize);
-                $o=$startRow;
-                // Загружаем только те строки, которые соответствуют нашему фильтру, из  в объект PhpSpreadsheet
-                $spreadsheet = $reader->load($str);
-                $sheetData   = $spreadsheet->getActiveSheet()->toArray();
-    
-                return [$sheetData ,$o];
+                     $chunkFilter = new IRead();
+                    $reader->setReadFilter($chunkFilter);
+                    $chunkFilter->setRows($startRow, $chunkSize);
+                    $o=$startRow;
+                    // Загружаем только те строки, которые соответствуют нашему фильтру, из  в объект PhpSpreadsheet
+                    $spreadsheet = $reader->load($str);
+                    $sheetData   = $spreadsheet->getActiveSheet()->toArray();
+                    $spreadsheet->__destruct();
+                    $spreadsheet = null;
+                    unset($spreadsheet);
+                    $reader = null;
+                    unset($reader);
+                 
+                return $sheetData;
                     }
     }
 
