@@ -79,7 +79,6 @@ function file_read(string $str,string $f)
            9 - ИНН компании
            10 - Сумма денег
            11 - fee
-           12
 
       */
         for ($i = 0; $i <$count; $i++) {
