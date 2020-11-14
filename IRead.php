@@ -41,7 +41,7 @@ function file_read(string $str,string $f)
     $reader = IOFactory::createReader($f);
     
         
-            $chunkSize = 5;
+            $chunkSize = 100000;
              
        
            // Цикл для чтения нашего рабочего листа блоками 
@@ -50,7 +50,6 @@ function file_read(string $str,string $f)
                      $chunkFilter = new IRead();
                     $reader->setReadFilter($chunkFilter);
                     $chunkFilter->setRows($startRow, $chunkSize);
-                    $o=$startRow;
                     // Загружаем только те строки, которые соответствуют нашему фильтру, из  в объект PhpSpreadsheet
                     $spreadsheet = $reader->load($str);
                     $sheetData   = $spreadsheet->getActiveSheet()->toArray();
@@ -64,9 +63,39 @@ function file_read(string $str,string $f)
                     }
     }
 
+    function Parsefile(array $TABLE, int $target)
+    {
+        
+        $count = count($TABLE);
+       
+        
+        $c=count($TABLE);
+        /* 3- Это адреса
+           1 - Округ (Республика ....)
+           2 - Время и дата
+           4 - ??? int
+           7 - тип платежа
+           8 - компания
+           9 - ИНН компании
+           10 - Сумма денег
+           11 - fee
+           12
+
+      */
+        for ($i = 0; $i <$count; $i++) {
+            echo $TABLE[$i][$target]. "\n";
+        } 
+
+    }
+
+    function file_write(string $str,string $f)
+    {
 
 
 
+      
+
+    }
 
 
 
